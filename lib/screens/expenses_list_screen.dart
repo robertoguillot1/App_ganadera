@@ -196,21 +196,18 @@ class ExpensesListScreen extends StatelessWidget {
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  NumberFormat.currency(symbol: '\$', decimalDigits: 0)
-                                      .format(expense.amount),
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red,
-                                  ),
+                            Flexible(
+                              child: Text(
+                                NumberFormat.currency(symbol: '\$', decimalDigits: 0)
+                                    .format(expense.amount),
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
                                 ),
-                              ],
+                                textAlign: TextAlign.end,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                             PopupMenuButton(
                               icon: const Icon(Icons.more_vert),

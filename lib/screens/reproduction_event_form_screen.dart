@@ -168,7 +168,11 @@ class _ReproductionEventFormScreenState extends State<ReproductionEventFormScree
                   if (widget.eventType == ReproductionEventType.calving)
                     const DropdownMenuItem<Cattle>(
                       value: null,
-                      child: Text('Sin padre (inseminación artificial)'),
+                      child: Text(
+                        'Sin padre (inseminación artificial)',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
                     ),
                   ...widget.farm.cattle
                       .where((c) => c.gender == CattleGender.male)
@@ -181,7 +185,11 @@ class _ReproductionEventFormScreenState extends State<ReproductionEventFormScree
                       .map((cow) {
                     return DropdownMenuItem<Cattle>(
                       value: cow,
-                      child: Text(cow.name ?? cow.identification ?? 'Sin ID'),
+                      child: Text(
+                        cow.name ?? cow.identification ?? 'Sin ID',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
                     );
                   }).toList(),
                 ],
