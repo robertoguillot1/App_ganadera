@@ -221,6 +221,54 @@ class Cattle {
     return expectedCalvingDate!.difference(now).inDays;
   }
 
+  // Getter para calcular la fecha probable de parto
+  DateTime? get fechaProbableParto {
+    // Si ya existe expectedCalvingDate, usarlo
+    if (expectedCalvingDate != null) return expectedCalvingDate;
+    
+    // Si hay fecha de inseminación, calcular (inseminación + 283 días)
+    if (inseminationDate != null) {
+      return inseminationDate!.add(const Duration(days: 283));
+    }
+    
+    return null;
+  }
+
+  // Getter para calcular la fecha de secado (60 días antes del parto)
+  DateTime? get fechaSecado {
+    final fechaParto = fechaProbableParto;
+    if (fechaParto == null) return null;
+    return fechaParto.subtract(const Duration(days: 60));
+  }
+
+  // Getter para calcular días hasta el secado
+  int? get diasHastaSecado {
+    final fechaSecadoCalculada = fechaSecado;
+    if (fechaSecadoCalculada == null) return null;
+    final now = DateTime.now();
+    return fechaSecadoCalculada.difference(now).inDays;
+  }
+
+  // Getter para verificar si necesita secado
+  // Solo si está preñada y no está seca (está en producción)
+  bool get necesitaSecado {
+    if (breedingStatus != BreedingStatus.prenada) return false;
+    if (breedingStatus == BreedingStatus.seca) return false; // Ya está seca
+    return fechaSecado != null;
+  }
+
+  // Getter para determinar el nivel de urgencia del secado
+  // Retorna: null (no necesita), 'warning' (15-30 días), 'urgent' (<15 días o pasado)
+  String? get nivelUrgenciaSecado {
+    if (!necesitaSecado) return null;
+    final dias = diasHastaSecado;
+    if (dias == null) return null;
+    
+    if (dias < 15) return 'urgent'; // Menos de 15 días o ya pasó
+    if (dias <= 30) return 'warning'; // Entre 15 y 30 días
+    return null; // Más de 30 días, no es urgente aún
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

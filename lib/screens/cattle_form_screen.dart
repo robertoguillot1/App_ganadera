@@ -357,19 +357,13 @@ class _CattleFormScreenState extends State<CattleFormScreen> {
                   children: [
                     const Text('Etapa de producción'),
                     RadioListTile<ProductionStage>(
-                      title: const Text('Cría'),
-                      value: ProductionStage.levante,
-                      groupValue: _productionStage,
-                      onChanged: (value) => setState(() => _productionStage = value!),
-                    ),
-                    RadioListTile<ProductionStage>(
                       title: const Text('Levante'),
                       value: ProductionStage.levante,
                       groupValue: _productionStage,
                       onChanged: (value) => setState(() => _productionStage = value!),
                     ),
                     RadioListTile<ProductionStage>(
-                      title: const Text('Ceba'),
+                      title: const Text('Desarrollo'),
                       value: ProductionStage.desarrollo,
                       groupValue: _productionStage,
                       onChanged: (value) => setState(() => _productionStage = value!),

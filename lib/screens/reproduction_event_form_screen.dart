@@ -285,21 +285,32 @@ class _ReproductionEventFormScreenState extends State<ReproductionEventFormScree
                           ..._getPotentialChildren().map((child) {
                             return DropdownMenuItem<Cattle>(
                               value: child,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    child.name ?? child.identification ?? 'Sin ID',
-                                    style: const TextStyle(fontWeight: FontWeight.w500),
+                              child: ListTile(
+                                dense: true,
+                                contentPadding: EdgeInsets.zero,
+                                leading: Icon(
+                                  child.gender == CattleGender.male 
+                                      ? Icons.male 
+                                      : Icons.female,
+                                  size: 20,
+                                  color: Colors.grey.shade600,
+                                ),
+                                title: Text(
+                                  child.name ?? child.identification ?? 'Sin ID',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
                                   ),
-                                  Text(
-                                    'Nació: ${DateFormat('dd/MM/yyyy').format(child.birthDate)} - ${child.genderString}',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey.shade600,
-                                      ),
-                                    ),
-                                ],
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                subtitle: Text(
+                                  '${DateFormat('dd/MM/yyyy').format(child.birthDate)} - ${child.genderString}',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.grey.shade600,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             );
                           }).toList(),
